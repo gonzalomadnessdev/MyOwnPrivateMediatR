@@ -17,8 +17,7 @@ namespace MyOwnPrivateMediatR.MyOwnPrivateMediatR
                             && !t.IsAbstract)
                 .ToList();
 
-            //var domainEventsHandlers = types.Select(t => Activator.CreateInstance(t)).Where(o => o != null).ToList();
-            var domainEventsHandlers = types.Select(t => serviceProvider.GetRequiredService(t)).Where(o => o != null).ToList(); //IServiceProvider serviceProvider
+            var domainEventsHandlers = types.Select(t => serviceProvider.GetRequiredService(t)).Where(o => o != null).ToList();
 
             foreach (var _handler  in domainEventsHandlers)
             {
