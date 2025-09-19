@@ -2,6 +2,6 @@
 {
     public interface IFakeService
     {
-        void SendNotification();
+        Task SendNotification(Guid OrderId);
     }
 }

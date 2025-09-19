@@ -18,11 +18,25 @@ namespace MyOwnPrivateMediatR.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create(CreateOrderRequest request)
         {
-            _domainEventsBus.Emit(new OrderCreated(Guid.NewGuid(), DateTime.Now));
+            var orderId = Guid.NewGuid();
+            if (request.sync)
+            {
+                await _domainEventsBus.EmitSync(new OrderCreated(orderId, DateTime.Now));
+            }
+            else
+            {
+                _domainEventsBus.Emit(new OrderCreated(orderId, DateTime.Now));
+            }
 
+            Console.WriteLine("Return Ok");
             return Ok();
+        }
+
+        public class CreateOrderRequest
+        {
+            public bool sync { get; set; }
         }
     }
 

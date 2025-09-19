@@ -13,12 +13,10 @@ namespace MyOwnPrivateMediatR.Handlers
         }
         abstract public Task Handle(TDomainEvent domainEvent);
 
-        public Task Handle(IDomainEvent domainEvent)
+        public async Task Handle(IDomainEvent domainEvent)
         {
             var _domainEvent = domainEvent as TDomainEvent ?? throw new InvalidCastException();
-            Handle(_domainEvent);
-
-            return Task.CompletedTask;
+            await Handle(_domainEvent);
         }
     }
 }

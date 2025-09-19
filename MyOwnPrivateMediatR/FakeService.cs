@@ -9,6 +9,12 @@
             ++counter;
         }
 
-        public void SendNotification() => Console.WriteLine($"Notification sent by #{counter} instance");
+        public Task SendNotification(Guid OrderId)
+        {
+            return Task.Run(() => {
+                Thread.Sleep(2000); // Simulate some work
+                Console.WriteLine($"Notification sent by #{counter} instance. OrderId ({OrderId})");
+            });
+        }
     }
 }

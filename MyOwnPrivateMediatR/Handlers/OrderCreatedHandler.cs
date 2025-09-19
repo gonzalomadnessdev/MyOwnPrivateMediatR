@@ -10,17 +10,15 @@ namespace MyOwnPrivateMediatR.Handlers
             _logger = logger;
         }
 
-        public override Task Handle(OrderCreated domainEvent)
+        public override async Task Handle(OrderCreated domainEvent)
         {
             _logger.LogInformation("An order has been created at {datetime}. ({id})", domainEvent.Date, domainEvent.OrderId);
 
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var service = scope.ServiceProvider.GetRequiredService<IFakeService>();
-                service.SendNotification();
+                await service.SendNotification(domainEvent.OrderId);
             }
-
-            return Task.CompletedTask;
         }
     }
 }

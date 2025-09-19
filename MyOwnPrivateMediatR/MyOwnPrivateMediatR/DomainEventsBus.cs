@@ -32,8 +32,24 @@ namespace MyOwnPrivateMediatR.MyOwnPrivateMediatR
         public void Emit(IDomainEvent domainEvent){
             var typeName = domainEvent.GetType().Name;
 
-            if (_handlers.TryGetValue(typeName, out var handler)) {
+            if (_handlers.TryGetValue(typeName, out var handler))
+            {
                 Task.Run(() => handler.Handle(domainEvent));
+            }
+            else
+            {
+                throw new Exception($"No handler found for event {typeName}");
+            }
+        }
+
+        public async Task EmitSync(IDomainEvent domainEvent){
+            var typeName = domainEvent.GetType().Name;
+            if (_handlers.TryGetValue(typeName, out var handler)) {
+                await handler.Handle(domainEvent);
+            }
+            else
+            {
+                throw new Exception($"No handler found for event {typeName}");
             }
         }
     }
