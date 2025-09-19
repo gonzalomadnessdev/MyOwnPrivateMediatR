@@ -11,6 +11,7 @@ namespace MyOwnPrivateMediatR
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<IFakeService, FakeService>();
             builder.Services.AddSingleton<OrderCreatedHandler>();
             builder.Services.AddSingleton<DomainEventsBus>();
             builder.Services.AddControllers();

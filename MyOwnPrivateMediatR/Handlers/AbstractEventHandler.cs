@@ -1,14 +1,15 @@
-﻿using MyOwnPrivateMediatR.MyOwnPrivateMediatR;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MyOwnPrivateMediatR.MyOwnPrivateMediatR;
 
 namespace MyOwnPrivateMediatR.Handlers
 {
     abstract public class AbstractEventHandler<TDomainEvent> : IDomainEventHandler where TDomainEvent : class, IDomainEvent
     {
-        protected readonly IServiceProvider _serviceProvider;
+        protected readonly IServiceScopeFactory _serviceScopeFactory;
 
-        protected AbstractEventHandler(IServiceProvider serviceProvider)
+        protected AbstractEventHandler(IServiceScopeFactory serviceScopeFactory)
         {
-            _serviceProvider = serviceProvider;
+            _serviceScopeFactory = serviceScopeFactory;
         }
         abstract public Task Handle(TDomainEvent domainEvent);
 
