@@ -5,7 +5,6 @@ namespace MyOwnPrivateMediatR
 {
     public class DomainMessageBus : IDomainMessageBus
     {
-        const string HANDLER_SUFFIX = "Handler";
         public static DomainMessageBusOptions Options { get; } = new DomainMessageBusOptions();
 
         private Dictionary<string, IDomainMessageHandler> _handlers = new Dictionary<string, IDomainMessageHandler>();
@@ -26,11 +25,9 @@ namespace MyOwnPrivateMediatR
             foreach (var _handler in domainMessageHandlers)
             {
                 IDomainMessageHandler handler = (_handler as IDomainMessageHandler) ?? throw new Exception($"Cannot cast to {nameof(IDomainMessageHandler)}");
-                string messageName = handler.GetType().Name.Replace(HANDLER_SUFFIX, String.Empty);
-
+                string messageName = handler.GetType().BaseType!.GetGenericArguments().First().Name;
                 _handlers.Add(messageName, handler);
             }
-
         }
 
         public void Emit(IDomainMessage message)
