@@ -8,13 +8,13 @@ namespace OrdersApi.Controllers
     [Route("[controller]")]
     public class OrdersController : ControllerBase
     {
-        private readonly IDomainEventsBus _domainEventsBus;
+        private readonly IDomainMessageBus _domainMessageBus;
 
         public OrdersController(
-            IDomainEventsBus domainEventsBus
+            IDomainMessageBus domainMessageBus
         )
         {
-            _domainEventsBus = domainEventsBus;
+            _domainMessageBus = domainMessageBus;
         }
 
         [HttpPost("")]
@@ -23,11 +23,11 @@ namespace OrdersApi.Controllers
             var orderId = Guid.NewGuid();
             if (request.sync)
             {
-                await _domainEventsBus.EmitSync(new OrderCreated(orderId, DateTime.Now));
+                await _domainMessageBus.EmitSync(new OrderCreated(orderId, DateTime.Now));
             }
             else
             {
-                _domainEventsBus.Emit(new OrderCreated(orderId, DateTime.Now));
+                _domainMessageBus.Emit(new OrderCreated(orderId, DateTime.Now));
             }
 
             Console.WriteLine("Return Ok");

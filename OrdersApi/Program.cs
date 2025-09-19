@@ -12,7 +12,7 @@ namespace OrdersApi
 
             // Add services to the container.
             builder.Services.AddScoped<IFakeService, FakeService>();
-            builder.Services.AddDomainEventsBus((options) => options.AddHandler<OrderCreatedHandler>());
+            builder.Services.AddDomainMessageBus((options) => options.AddHandler<OrderCreatedHandler>());
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

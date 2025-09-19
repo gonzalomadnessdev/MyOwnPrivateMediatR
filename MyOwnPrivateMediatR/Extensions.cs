@@ -4,16 +4,16 @@ namespace MyOwnPrivateMediatR
 {
     public static class Extensions
     {
-        public static IServiceCollection AddDomainEventsBus(this IServiceCollection services, Action<DomainEventsBusOptions> options)
+        public static IServiceCollection AddDomainMessageBus(this IServiceCollection services, Action<DomainMessageBusOptions> options)
         {
-            options(DomainEventsBus.Options);
+            options(DomainMessageBus.Options);
 
-            foreach (var handler in DomainEventsBus.Options.HandlerTypes)
+            foreach (var handler in DomainMessageBus.Options.HandlerTypes)
             {
                 services.AddSingleton(handler);
             }
 
-            services.AddSingleton<IDomainEventsBus, DomainEventsBus>();
+            services.AddSingleton<IDomainMessageBus, DomainMessageBus>();
             return services;
         }
     }

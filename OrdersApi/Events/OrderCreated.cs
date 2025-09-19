@@ -2,5 +2,5 @@
 
 namespace OrdersApi.Events
 {
-    public record OrderCreated(Guid OrderId, DateTime Date) : IDomainEvent;
+    public record OrderCreated(Guid OrderId, DateTime Date) : IDomainMessage;
 }

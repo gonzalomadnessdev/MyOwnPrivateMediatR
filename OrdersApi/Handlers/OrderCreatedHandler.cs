@@ -3,7 +3,7 @@ using MyOwnPrivateMediatR;
 
 namespace OrdersApi.Handlers
 {
-    public class OrderCreatedHandler : AbstractEventHandler<OrderCreated>
+    public class OrderCreatedHandler : AbstractMessageHandler<OrderCreated>
     {
         private readonly ILogger<OrderCreatedHandler> _logger;
         public OrderCreatedHandler(ILogger<OrderCreatedHandler> logger, IServiceScopeFactory serviceScopeFactory) : base(serviceScopeFactory)
@@ -11,14 +11,14 @@ namespace OrdersApi.Handlers
             _logger = logger;
         }
 
-        public override async Task Handle(OrderCreated domainEvent)
+        public override async Task Handle(OrderCreated @event)
         {
-            _logger.LogInformation("An order has been created at {datetime}. ({id})", domainEvent.Date, domainEvent.OrderId);
+            _logger.LogInformation("An order has been created at {datetime}. ({id})", @event.Date, @event.OrderId);
 
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var service = scope.ServiceProvider.GetRequiredService<IFakeService>();
-                await service.SendNotification(domainEvent.OrderId);
+                await service.SendNotification(@event.OrderId);
             }
         }
     }
