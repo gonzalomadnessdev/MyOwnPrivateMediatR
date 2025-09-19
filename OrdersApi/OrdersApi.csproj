@@ -14,4 +14,8 @@
     <ProjectReference Include="..\MyOwnPrivateMediatR\MyOwnPrivateMediatR.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers\" />
+  </ItemGroup>
+
 </Project>

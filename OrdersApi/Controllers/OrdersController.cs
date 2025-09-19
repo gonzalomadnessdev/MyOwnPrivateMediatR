@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OrdersApi.Events;
 using MyOwnPrivateMediatR;
+using OrdersApi.Commands;
 
 namespace OrdersApi.Controllers
 {
@@ -18,25 +19,14 @@ namespace OrdersApi.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> Create(CreateOrderRequest request)
+        public async Task<IActionResult> Create()
         {
             var orderId = Guid.NewGuid();
-            if (request.sync)
-            {
-                await _domainMessageBus.EmitSync(new OrderCreated(orderId, DateTime.Now));
-            }
-            else
-            {
-                _domainMessageBus.Emit(new OrderCreated(orderId, DateTime.Now));
-            }
+            await _domainMessageBus.EmitSync(new CreateOrderCommand(orderId, DateTime.Now));
+            _domainMessageBus.Emit(new OrderCreatedEvent(orderId, DateTime.Now));
 
             Console.WriteLine("Return Ok");
             return Ok();
-        }
-
-        public class CreateOrderRequest
-        {
-            public bool sync { get; set; }
         }
     }
 

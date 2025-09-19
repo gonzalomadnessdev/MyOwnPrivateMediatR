@@ -14,7 +14,7 @@
         {
             return Task.Run(() => {
                 Thread.Sleep(2000);
-                Console.WriteLine($"Notification sent by #{InstanceNumber} instance. OrderId ({OrderId})");
+                Console.WriteLine($"Notification sent by #{InstanceNumber} instance of service. OrderId ({OrderId})");
             });
         }
     }
