@@ -5,6 +5,8 @@ namespace MyOwnPrivateMediatR
 {
     public class DomainEventsBus
     {
+        const string HANDLER_SUFFIX = "Handler";
+
         private Dictionary<string, IDomainEventHandler> _handlers = new Dictionary<string, IDomainEventHandler>();
         public DomainEventsBus(
             IServiceProvider serviceProvider
@@ -23,7 +25,7 @@ namespace MyOwnPrivateMediatR
             foreach (var _handler  in domainEventsHandlers)
             {
                 IDomainEventHandler handler = (_handler as IDomainEventHandler) ?? throw new Exception($"Cannot cast to {nameof(IDomainEventHandler)}");
-                string eventName = handler.GetType().Name.Replace("Handler", "");
+                string eventName = handler.GetType().Name.Replace(HANDLER_SUFFIX, String.Empty);
 
                 _handlers.Add(eventName, handler);
             }
