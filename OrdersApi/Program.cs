@@ -1,6 +1,8 @@
 using MyOwnPrivateMediatR;
 using OrdersApi.Commands.Handlers;
 using OrdersApi.Events.Handlers;
+using OrdersApi.Repository;
+using OrdersApi.Services;
 
 namespace OrdersApi
 {
@@ -11,7 +13,8 @@ namespace OrdersApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddScoped<IFakeService, FakeService>();
+            builder.Services.AddScoped<IOrdersRepository, FakeOrdersRepository>();
+            builder.Services.AddScoped<INotificationsService, FakeNotificationsService>();
             builder.Services.AddDomainMessageBus(
                 (options) => options.AddHandler<OrderCreatedEventHandler>().
                                     AddHandler<CreateOrderCommandHandler>()

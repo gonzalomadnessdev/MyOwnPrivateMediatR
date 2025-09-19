@@ -1,4 +1,5 @@
 ﻿using MyOwnPrivateMediatR;
+using OrdersApi.Services;
 
 namespace OrdersApi.Events.Handlers
 {
@@ -14,7 +15,7 @@ namespace OrdersApi.Events.Handlers
         {
             using (var scope = _serviceScopeFactory.CreateScope())
             {
-                var service = scope.ServiceProvider.GetRequiredService<IFakeService>();
+                var service = scope.ServiceProvider.GetRequiredService<INotificationsService>();
                 await service.SendNotification(@event.OrderId);
             }
         }

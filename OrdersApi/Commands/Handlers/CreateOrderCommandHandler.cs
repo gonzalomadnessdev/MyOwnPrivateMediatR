@@ -1,4 +1,5 @@
 ﻿using MyOwnPrivateMediatR;
+using OrdersApi.Repository;
 
 namespace OrdersApi.Commands.Handlers
 {
@@ -11,11 +12,15 @@ namespace OrdersApi.Commands.Handlers
             _logger = logger;
         }
 
-        public override Task Handle(CreateOrderCommand command)
+        public override async Task Handle(CreateOrderCommand command)
         {
-            _logger.LogInformation("An order has been created at {datetime}. ({id})", command.Date, command.OrderId);
+            using(var scope = _serviceScopeFactory.CreateScope())
+            {
+                var repository = scope.ServiceProvider.GetRequiredService<IOrdersRepository>();
+                await repository.CreateOrder(command.OrderId);
+            }
 
-            return Task.CompletedTask;
+            _logger.LogInformation("An order has been created at {datetime}. ({id})", command.Date, command.OrderId);
         }
     }
 }
