@@ -1,4 +1,6 @@
-﻿namespace MyOwnPrivateMediatR
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace MyOwnPrivateMediatR
 {
     abstract public class AbstractEventHandler<TDomainEvent> : IDomainEventHandler where TDomainEvent : class, IDomainEvent
     {

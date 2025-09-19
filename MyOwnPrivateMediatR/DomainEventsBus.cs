@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MyOwnPrivateMediatR
 {
@@ -9,7 +10,7 @@ namespace MyOwnPrivateMediatR
             IServiceProvider serviceProvider
         )
         {
-            var assembly = Assembly.GetExecutingAssembly();
+            var assembly = Assembly.GetEntryAssembly() ?? throw new Exception("Cannot get entry assembly");
 
             var types = assembly.GetTypes()
                 .Where(t => typeof(IDomainEventHandler).IsAssignableFrom(t)

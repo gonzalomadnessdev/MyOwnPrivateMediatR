@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersApi", "OrdersApi\OrdersApi.csproj", "{B6D50B40-888E-4BB4-9931-59F95A8751F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyOwnPrivateMediatR", "MyOwnPrivateMediatR\MyOwnPrivateMediatR.csproj", "{C4109DC9-49B7-4EB5-989A-60431200B3F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B6D50B40-888E-4BB4-9931-59F95A8751F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6D50B40-888E-4BB4-9931-59F95A8751F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6D50B40-888E-4BB4-9931-59F95A8751F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4109DC9-49B7-4EB5-989A-60431200B3F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4109DC9-49B7-4EB5-989A-60431200B3F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4109DC9-49B7-4EB5-989A-60431200B3F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4109DC9-49B7-4EB5-989A-60431200B3F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
