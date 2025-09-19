@@ -7,7 +7,7 @@ namespace MyOwnPrivateMediatR
     {
         public static DomainMessageBusOptions Options { get; } = new DomainMessageBusOptions();
 
-        private Dictionary<string, IDomainMessageHandler> _handlers = new Dictionary<string, IDomainMessageHandler>();
+        private Dictionary<string, ICollection<IDomainMessageHandler>> _handlers = new Dictionary<string, ICollection<IDomainMessageHandler>>();
         public DomainMessageBus(
             IServiceProvider serviceProvider
         )
@@ -26,7 +26,17 @@ namespace MyOwnPrivateMediatR
             {
                 IDomainMessageHandler handler = (_handler as IDomainMessageHandler) ?? throw new Exception($"Cannot cast to {nameof(IDomainMessageHandler)}");
                 string messageName = handler.GetType().BaseType!.GetGenericArguments().First().Name;
-                _handlers.Add(messageName, handler);
+
+                if (_handlers.TryGetValue(messageName, out var existingHandlers))
+                {
+                    existingHandlers.Add(handler);
+                }
+                else
+                {
+                    _handlers.Add(messageName, []);
+                    _handlers[messageName].Add(handler);
+                }
+                    
             }
         }
 
@@ -34,9 +44,9 @@ namespace MyOwnPrivateMediatR
         {
             var typeName = message.GetType().Name;
 
-            if (_handlers.TryGetValue(typeName, out var handler))
+            if (_handlers.TryGetValue(typeName, out var handlers))
             {
-                Task.Run(() => handler.Handle(message));
+                Task.WhenAll(handlers.Select(h => Task.Run(() => h.Handle(message))).ToArray());
             }
             else
             {
@@ -47,9 +57,9 @@ namespace MyOwnPrivateMediatR
         public async Task EmitSync(IDomainMessage message)
         {
             var typeName = message.GetType().Name;
-            if (_handlers.TryGetValue(typeName, out var handler))
+            if (_handlers.TryGetValue(typeName, out var handlers))
             {
-                await handler.Handle(message);
+                await Task.WhenAll(handlers.Select(h => Task.Run(() => h.Handle(message))).ToArray());
             }
             else
             {

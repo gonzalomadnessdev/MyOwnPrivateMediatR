@@ -16,8 +16,9 @@ namespace OrdersApi
             builder.Services.AddScoped<IOrdersRepository, FakeOrdersRepository>();
             builder.Services.AddScoped<INotificationsService, FakeNotificationsService>();
             builder.Services.AddDomainMessageBus(
-                (options) => options.AddHandler<OrderCreatedEventHandler>().
-                                    AddHandler<CreateOrderCommandHandler>()
+                (options) => options.AddHandler<OrderCreatedEventHandler>()
+                                    .AddHandler<AnotherOrderCreatedEventHandler>()
+                                    .AddHandler<CreateOrderCommandHandler>()
             );
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
