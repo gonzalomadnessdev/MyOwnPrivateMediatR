@@ -40,7 +40,7 @@ namespace MyOwnPrivateMediatR
             }
         }
 
-        public void Emit(IDomainMessage message)
+        public void Emit(object message)
         {
             var typeName = message.GetType().Name;
 
@@ -54,7 +54,7 @@ namespace MyOwnPrivateMediatR
             }
         }
 
-        public async Task EmitSync(IDomainMessage message)
+        public async Task EmitSync(object message)
         {
             var typeName = message.GetType().Name;
             if (_handlers.TryGetValue(typeName, out var handlers))

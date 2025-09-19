@@ -2,6 +2,6 @@
 {
     public interface IDomainMessageHandler
     {
-        public Task Handle(IDomainMessage message);
+        public Task Handle(object message);
     }
 }

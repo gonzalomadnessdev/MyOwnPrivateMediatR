@@ -1,6 +1,4 @@
-﻿using MyOwnPrivateMediatR;
-
-namespace OrdersApi.Events
+﻿namespace OrdersApi.Events
 {
-    public record OrderCreatedEvent(Guid OrderId, DateTime Date) : IDomainMessage;
+    public record OrderCreatedEvent(Guid OrderId, DateTime Date);
 }

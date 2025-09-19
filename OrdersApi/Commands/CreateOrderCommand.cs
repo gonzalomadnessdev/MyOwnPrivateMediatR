@@ -1,6 +1,4 @@
-﻿using MyOwnPrivateMediatR;
-
-namespace OrdersApi.Commands
+﻿namespace OrdersApi.Commands
 {
-    public record CreateOrderCommand(Guid OrderId, DateTime Date) : IDomainMessage;
+    public record CreateOrderCommand(Guid OrderId, DateTime Date);
 }

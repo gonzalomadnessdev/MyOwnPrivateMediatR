@@ -2,7 +2,7 @@
 
 namespace MyOwnPrivateMediatR
 {
-    abstract public class AbstractMessageHandler<TDomainMessage> : IDomainMessageHandler where TDomainMessage : class, IDomainMessage
+    abstract public class AbstractMessageHandler<TDomainMessage> : IDomainMessageHandler where TDomainMessage : class
     {
         protected readonly IServiceScopeFactory _serviceScopeFactory;
 
@@ -12,7 +12,7 @@ namespace MyOwnPrivateMediatR
         }
         abstract public Task Handle(TDomainMessage message);
 
-        public async Task Handle(IDomainMessage message)
+        public async Task Handle(object message)
         {
             var _message = message as TDomainMessage ?? throw new InvalidCastException();
             await Handle(_message);
