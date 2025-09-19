@@ -6,6 +6,7 @@ namespace MyOwnPrivateMediatR
     public class DomainEventsBus
     {
         const string HANDLER_SUFFIX = "Handler";
+        public static DomainEventsBusOptions Options { get; } = new DomainEventsBusOptions();
 
         private Dictionary<string, IDomainEventHandler> _handlers = new Dictionary<string, IDomainEventHandler>();
         public DomainEventsBus(
@@ -54,6 +55,17 @@ namespace MyOwnPrivateMediatR
             {
                 throw new Exception($"No handler found for event {typeName}");
             }
+        }
+    }
+
+    public class DomainEventsBusOptions
+    {
+        public List<Type> handlerTypes { get; set; } = [];
+
+        public DomainEventsBusOptions AddHandler<T>() where T : IDomainEventHandler
+        {
+            handlerTypes.Add(typeof(T));
+            return this;
         }
     }
 }
