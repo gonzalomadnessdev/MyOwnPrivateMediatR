@@ -1,8 +1,8 @@
 
-using MyOwnPrivateMediatR.Handlers;
-using MyOwnPrivateMediatR.MyOwnPrivateMediatR;
+using OrdersApi.Handlers;
+using MyOwnPrivateMediatR;
 
-namespace MyOwnPrivateMediatR
+namespace OrdersApi
 {
     public class Program
     {

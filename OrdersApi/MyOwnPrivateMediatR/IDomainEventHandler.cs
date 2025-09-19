@@ -1,4 +1,4 @@
-﻿namespace MyOwnPrivateMediatR.MyOwnPrivateMediatR
+﻿namespace MyOwnPrivateMediatR
 {
     public interface IDomainEventHandler
     {

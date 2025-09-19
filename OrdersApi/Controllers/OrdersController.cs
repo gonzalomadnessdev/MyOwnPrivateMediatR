@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyOwnPrivateMediatR.Events;
-using MyOwnPrivateMediatR.MyOwnPrivateMediatR;
+using OrdersApi.Events;
+using MyOwnPrivateMediatR;
 
-namespace MyOwnPrivateMediatR.Controllers
+namespace OrdersApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

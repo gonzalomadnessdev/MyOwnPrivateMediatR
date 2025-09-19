@@ -1,4 +1,4 @@
-﻿namespace MyOwnPrivateMediatR
+﻿namespace OrdersApi
 {
     public class FakeService : IFakeService
     {

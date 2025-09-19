@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace MyOwnPrivateMediatR.MyOwnPrivateMediatR
+namespace MyOwnPrivateMediatR
 {
     public class DomainEventsBus
     {

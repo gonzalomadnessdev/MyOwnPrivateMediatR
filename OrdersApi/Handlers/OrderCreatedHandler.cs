@@ -1,6 +1,7 @@
-﻿using MyOwnPrivateMediatR.Events;
+﻿using OrdersApi.Events;
+using MyOwnPrivateMediatR;
 
-namespace MyOwnPrivateMediatR.Handlers
+namespace OrdersApi.Handlers
 {
     public class OrderCreatedHandler : AbstractEventHandler<OrderCreated>
     {
