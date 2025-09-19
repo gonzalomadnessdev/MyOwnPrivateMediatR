@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MyOwnPrivateMediatR
 {
-    public class DomainEventsBus
+    public class DomainEventsBus : IDomainEventsBus
     {
         const string HANDLER_SUFFIX = "Handler";
         public static DomainEventsBusOptions Options { get; } = new DomainEventsBusOptions();
@@ -23,7 +23,7 @@ namespace MyOwnPrivateMediatR
 
             var domainEventsHandlers = types.Select(t => serviceProvider.GetRequiredService(t)).Where(o => o != null).ToList();
 
-            foreach (var _handler  in domainEventsHandlers)
+            foreach (var _handler in domainEventsHandlers)
             {
                 IDomainEventHandler handler = (_handler as IDomainEventHandler) ?? throw new Exception($"Cannot cast to {nameof(IDomainEventHandler)}");
                 string eventName = handler.GetType().Name.Replace(HANDLER_SUFFIX, String.Empty);
@@ -33,7 +33,8 @@ namespace MyOwnPrivateMediatR
 
         }
 
-        public void Emit(IDomainEvent domainEvent){
+        public void Emit(IDomainEvent domainEvent)
+        {
             var typeName = domainEvent.GetType().Name;
 
             if (_handlers.TryGetValue(typeName, out var handler))
@@ -46,9 +47,11 @@ namespace MyOwnPrivateMediatR
             }
         }
 
-        public async Task EmitSync(IDomainEvent domainEvent){
+        public async Task EmitSync(IDomainEvent domainEvent)
+        {
             var typeName = domainEvent.GetType().Name;
-            if (_handlers.TryGetValue(typeName, out var handler)) {
+            if (_handlers.TryGetValue(typeName, out var handler))
+            {
                 await handler.Handle(domainEvent);
             }
             else
@@ -60,11 +63,11 @@ namespace MyOwnPrivateMediatR
 
     public class DomainEventsBusOptions
     {
-        public List<Type> handlerTypes { get; set; } = [];
+        public List<Type> HandlerTypes { get; } = [];
 
         public DomainEventsBusOptions AddHandler<T>() where T : IDomainEventHandler
         {
-            handlerTypes.Add(typeof(T));
+            HandlerTypes.Add(typeof(T));
             return this;
         }
     }

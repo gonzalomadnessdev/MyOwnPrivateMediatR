@@ -8,10 +8,10 @@ namespace OrdersApi.Controllers
     [Route("[controller]")]
     public class OrdersController : ControllerBase
     {
-        private readonly DomainEventsBus _domainEventsBus;
+        private readonly IDomainEventsBus _domainEventsBus;
 
         public OrdersController(
-            DomainEventsBus domainEventsBus
+            IDomainEventsBus domainEventsBus
         )
         {
             _domainEventsBus = domainEventsBus;

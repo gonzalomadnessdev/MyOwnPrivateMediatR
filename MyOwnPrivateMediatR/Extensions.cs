@@ -8,12 +8,12 @@ namespace MyOwnPrivateMediatR
         {
             options(DomainEventsBus.Options);
 
-            foreach (var handler in DomainEventsBus.Options.handlerTypes)
+            foreach (var handler in DomainEventsBus.Options.HandlerTypes)
             {
                 services.AddSingleton(handler);
             }
 
-            services.AddSingleton<DomainEventsBus>();
+            services.AddSingleton<IDomainEventsBus, DomainEventsBus>();
             return services;
         }
     }
