@@ -2,7 +2,5 @@
 
 namespace MyOwnPrivateMediatR.Events
 {
-    public class OrderCreated : IDomainEvent
-    {
-    }
+    public record OrderCreated(Guid OrderId, DateTime Date) : IDomainEvent;
 }

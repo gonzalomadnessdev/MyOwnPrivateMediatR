@@ -2,6 +2,6 @@
 {
     public interface IDomainEventHandler
     {
-        public void Handle(IDomainEvent domainEvent);
+        public Task Handle(IDomainEvent domainEvent);
     }
 }

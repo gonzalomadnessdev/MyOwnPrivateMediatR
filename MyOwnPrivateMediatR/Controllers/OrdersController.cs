@@ -20,11 +20,10 @@ namespace MyOwnPrivateMediatR.Controllers
         [HttpPost("")]
         public IActionResult Create()
         {
-            _domainEventsBus.Emit(new OrderCreated());
+            _domainEventsBus.Emit(new OrderCreated(Guid.NewGuid(), DateTime.Now));
 
             return Ok();
         }
     }
-
 
 }
